@@ -5,7 +5,6 @@ from pprint import pprint
 initialUrl = "https://fondationdefrance.org/fr/tag-vulnerabilites"
 
 soup = BeautifulSoup(requests.get(initialUrl).text, "html.parser")
-
 columns = soup.find('div', id="template-amJs7jvN#2", class_="uk-margin")
 
 
@@ -29,4 +28,15 @@ def title_extraction():
         if title.name:
             pprint(title.text.strip())
 
-title_extraction()
+
+def mr_le_faire():
+    articles_h3 = columns.find_all('h3')
+    titles_list = [title.text.strip() for title in articles_h3 if title.name]
+    return titles_list
+
+#def get_next_url():
+
+
+
+
+mr_le_faire()
