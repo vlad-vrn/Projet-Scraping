@@ -32,7 +32,7 @@ def title_extraction():
 def mr_le_faire():
     articles_h3 = columns.find_all('h3')
     titles_list = [title.text.strip() for title in articles_h3 if title.name]
-    return titles_list
+    pprint(titles_list)
 
 #def get_next_url():
 
