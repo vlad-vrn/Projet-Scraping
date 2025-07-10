@@ -3,12 +3,14 @@ from bs4 import BeautifulSoup
 from pprint import pprint
 
 initialUrl = "https://books.toscrape.com/"
-response = requests.get(initialUrl)
+with requests.Session() as session:
+    response = session.get(initialUrl)
+
 
 soup = BeautifulSoup(response.text, 'html.parser')
 
 def find_number(url):
-    responselink = requests.get(url)
+    responselink = session.get(url)
     sub_soup = BeautifulSoup(responselink.text, 'html.parser')
     former = sub_soup.find('form', class_="form-horizontal")
     return int(former.find('strong').text.strip())
@@ -19,6 +21,7 @@ def main(n):
     links = categories.find_all('a')
     for link in links:
         numb = find_number(initialUrl + link['href'])
+        #print(numb)
         if numb<n:
             print(link.text.strip())
 main(2)
